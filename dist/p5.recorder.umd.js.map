@@ -1,0 +1,1 @@
+{"version":3,"file":"p5.recorder.umd.js","sources":["../src/index.js"],"sourcesContent":["export default function init() {\n  console.log(\"yo\");\n}\n"],"names":["console","log"],"mappings":"qMACEA,QAAQC,IAAI"}

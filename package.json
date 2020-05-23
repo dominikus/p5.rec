@@ -1,0 +1,17 @@
+{
+  "name": "p5.recorder",
+  "description": "p5.js screen recorder plugin",
+  "version": "0.0.1",
+  "source": "src/index.js",
+  "main": "dist/p5.recorder.js",
+  "module": "dist/p5.recorder.module.js",
+  "unpkg": "dist/p5.recorder.umd.js",
+  "author": "Dominikus Baur <do@minik.us> (https://do.minik.us)",
+  "scripts": {
+    "build": "microbundle",
+    "dev": "microbundle watch"
+  },
+  "devDependencies": {
+    "microbundle": "^0.12.0"
+  }
+}
