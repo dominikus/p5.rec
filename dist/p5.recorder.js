@@ -1,2 +1,2 @@
-module.exports=function(){console.log("yo")};
+var e,t,o;e=!1,t={},o="",p5.prototype.startRecording=function(s){e=!0,t=Object.assign({frameRate:this.getFrameRate()}),console.log(this),console.log(t);var a=new Worker("ffmpeg-worker-mp4.js");a.onmessage=function(e){var t=e.data;switch(t.type){case"ready":a.postMessage({type:"run",arguments:["-version"]});break;case"stdout":case"stderr":o+=t.data+"\n";break;case"exit":console.log("Process exited with code "+t.data),a.terminate()}},noLoop()},p5.prototype.registerMethod("post",function(){e&&console.log(o)});
 //# sourceMappingURL=p5.recorder.js.map

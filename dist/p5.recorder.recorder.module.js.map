@@ -1,1 +1,0 @@
-{"version":3,"file":"p5.recorder.recorder.module.js","sources":["../src/index.js"],"sourcesContent":["export default function init() {\n  console.log(\"yo\");\n}\n"],"names":["console","log"],"mappings":"0BACEA,QAAQC,IAAI"}
