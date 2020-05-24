@@ -7,12 +7,12 @@
   "author": "Dominikus Baur <do@minik.us> (https://do.minik.us)",
   "scripts": {
     "build": "microbundle",
-    "dev": "microbundle watch"
+    "dev": "microbundle watch --external none"
   },
   "devDependencies": {
     "microbundle": "^0.12.0"
   },
   "dependencies": {
-    "ffmpeg.js": "^4.2.9003"
+    "@ffmpeg/ffmpeg": "^0.8.3"
   }
 }

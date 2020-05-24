@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.js"></script>
+    <script type="module" src="../dist/p5.recorder.js"></script>
+  </head>
+  <body>
+    <script>
+      function setup(){
+        createCanvas(600,600);
+        frameRate(60);
+
+        startRecording();
+      }
+
+      function draw(){
+        background(`rgba(255,255,255,0.05)`);
+        let t = frameCount / 100;
+        noFill();
+
+        stroke('#333');
+
+        ellipse(
+          width / 2,
+          height / 2,
+          cos(t) * width,
+          cos(t) * height
+        );
+      }
+    </script>
+  </body>
+</html>

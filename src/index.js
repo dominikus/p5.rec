@@ -1,4 +1,6 @@
-(function() {
+import { createFFmpeg } from '@ffmpeg/ffmpeg';
+
+function initP5Recorder() {
   let _isRecording = false;
   let _config = {};
 
@@ -15,58 +17,38 @@
     };
 
     console.log(_config);
-    
-    /*var worker = new Worker("ffmpeg-worker-mp4.js");
 
-    worker.onmessage = function (e) {
-      var msg = e.data;
-      switch (msg.type) {
-        case "ready":
-          worker.postMessage({ type: "run", arguments: ["-version"] });
-          break;
-        case "stdout":
-          _status += msg.data + "\n";
-          console.log(_status);
-          break;
-        case "stderr":
-          _status += msg.data + "\n";
-          break;
-        case "exit":
-          console.log("Process exited with code " + msg.data);
-          worker.terminate();
-          break;
-        case "done":
-          console.log(msg);
+    const ffmpeg = createFFmpeg({
+      log: true,
+      progress: p => console.log(p)
+    });
+       
 
-          const result = msg.data[0];
+    const recordedBlobs = [];
 
-          var blob = new Blob([result.data], {
-            type: 'video/mp4'
-          });
+    const transcode = async (webcamData) => {
+      const name = 'record.webm';
+      console.log('Loading ffmpeg-core.js');
+      await ffmpeg.load();
+      console.log('Start transcoding');
+      await ffmpeg.write(name, webcamData);
+      await ffmpeg.transcode(name,  'output.mp4');
+      console.log('Complete transcoding');
+      const data = ffmpeg.read('output.mp4');
 
-          break;
-      }
-    };*/
+      const can2 = document.createElement('video');
+      can2.width = _config.width;
+      can2.height = _config.height;
+      can2.loop = true;
+      var videoURL = URL.createObjectURL(new Blob([data.buffer], { type: 'video/mp4'}));
+      document.querySelector('body').appendChild(can2);
+      can2.src = videoURL;
+      can2.play();
 
-    //const stream = this._renderer.drawingContext.captureStream(0);
-    const stream = document.querySelector('canvas').captureStream(0);
-
-    // hack from: https://stackoverflow.com/questions/44392027/webrtc-convert-webm-to-mp4-with-ffmpeg-js
-    //var options = {mimeType: 'video/webm;codecs=h264'};
-    var options = {mimeType: 'video/webm;codecs=vp9',
-  videoBitsPerSecond: 50000000};
-
-    var mediaRecorder = new MediaRecorder(stream, options);
-    let recordedBlobs = [];
-    mediaRecorder.onstop = handleStop;
-    mediaRecorder.ondataavailable = (event) => {
-      if (event.data && event.data.size > 0) {
-        recordedBlobs.push(event.data);
-      }
     }
-    mediaRecorder.start(); // collect 100ms of data
-    // mediaRecorder.stop();
 
+
+    
     function handleStop(a){
       console.log(a);
       console.log('done');
@@ -96,7 +78,7 @@
 
     console.log(this._renderer);
 
-    // let pixels = new Uint8Array(_config.width * _config.height * Math.pow(_config.pixelDensity, 2));
+    let pixels = new Uint8Array(_config.width * _config.height * Math.pow(_config.pixelDensity, 2));
 
     // disable p5.js draw loop:
     const _internalDraw = this._draw;
@@ -107,19 +89,22 @@
       _internalDraw();
 
       // store frame
-      /*const ctx = this._renderer.drawingContext;
-      pixels = ctx.getImageData(0, 0, _config.width * _config.pixelDensity, _config.height * _config.pixelDensity);
+      const ctx = this._renderer.drawingContext;
+      /*pixels = ctx.getImageData(0, 0, _config.width * _config.pixelDensity, _config.height * _config.pixelDensity);
       pixels = pixels.data;*/
 
-      stream.getVideoTracks()[0].requestFrame();
+      document.querySelector('canvas').toBlob(async (blob) => {
+        recordedBlobs.push(blob);
 
-      // this.redraw();
-      counter++;
-      if(counter < 100){
-      this._requestAnimId = window.requestAnimationFrame(this._draw);
-      } else {
-        mediaRecorder.stop();
-      }
+        counter++;
+        if(counter < 500){
+          this._requestAnimId = window.requestAnimationFrame(this._draw);
+        } else {
+          const resu = new Uint8Array(await (new Blob(recordedBlobs)).arrayBuffer());
+          transcode(resu);
+        }
+
+      });
     }
 
     this.noLoop();
@@ -127,4 +112,6 @@
   };
 
   // p5.prototype.registerMethod("post", storeFrame);
-})();
+}
+
+initP5Recorder();
