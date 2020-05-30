@@ -26,8 +26,6 @@ function setup() {
 
   angleMode(DEGREES);
   strokeCap(ROUND);
-
-  startRecording();
 }
 
 function draw() {
