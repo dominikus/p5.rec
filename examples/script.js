@@ -32,7 +32,7 @@ function setup() {
 
 function draw() {
   const bg = color(bgCol);
-  bg.setAlpha(5);
+  bg.setAlpha(0);
   background(bg);
 
   translate(width / 2, height / 2);
@@ -46,7 +46,7 @@ function draw() {
   stroke("#fff");
   fill("#000");
 
-  const xStep = (cos(frameCount / 50) + 3) * 5;
+  const xStep = (cos(frameCount / 5) + 3) * 5;
   const yStep = (sin(frameCount / 5) + 3) * 5;
 
   for (let x = -width / 2 + xStep / 2; x < width * 1.2; x += xStep * 3) {
@@ -57,8 +57,8 @@ function draw() {
       rect(
         sin(frameCount % 2),
         cos(frameCount % 2),
-        10 * (cos(frameCount) + 20),
-        10 * (sin(frameCount) + 2)
+        5 * (cos(frameCount + x) + 2),
+        5 * (cos(frameCount + y) + 2)
       );
       pop();
     }

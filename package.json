@@ -13,6 +13,7 @@
     "microbundle": "^0.12.0"
   },
   "dependencies": {
+    "@ffmpeg/core": "^0.7.1",
     "@ffmpeg/ffmpeg": "^0.8.3"
   }
 }

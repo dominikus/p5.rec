@@ -13,12 +13,13 @@ function initP5Recorder() {
       width: this.width,
       height: this.height,
       pixelDensity: this._pixelDensity,
-      frameRate: this._targetFrameRate,
+      framerate: this._targetFrameRate,
     };
 
     console.log(_config);
 
     const ffmpeg = createFFmpeg({
+      corePath: "../node_modules/@ffmpeg/core/ffmpeg-core.js",
       log: true,
       progress: p => console.log(p)
     });
@@ -32,7 +33,7 @@ function initP5Recorder() {
       await ffmpeg.load();
       console.log('Start transcoding');
       await ffmpeg.write(name, webcamData);
-      await ffmpeg.transcode(name,  'output.mp4');
+      await ffmpeg.transcode(name,  'output.mp4', `-framerate ${_config.framerate} -vf scale=${_config.width}:${_config.height}`);
       console.log('Complete transcoding');
       const data = ffmpeg.read('output.mp4');
 
@@ -94,10 +95,11 @@ function initP5Recorder() {
       pixels = pixels.data;*/
 
       document.querySelector('canvas').toBlob(async (blob) => {
+        // TODO: store directly in virtual filesystem instead of creating array?
         recordedBlobs.push(blob);
 
         counter++;
-        if(counter < 500){
+        if(counter < 50){
           this._requestAnimId = window.requestAnimationFrame(this._draw);
         } else {
           const resu = new Uint8Array(await (new Blob(recordedBlobs)).arrayBuffer());
