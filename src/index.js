@@ -1,43 +1,30 @@
-import { createFFmpeg } from '@ffmpeg/ffmpeg';
+import {init, transcode} from './encoder-ffmpeg.js';
+
+const H264_PRESETS = [
+  'ultrafast',
+  'superfast',
+  'veryfast',
+  'faster',
+  'fast',
+  'medium',
+  'slow',
+  'slower',
+  'veryslow'
+];
 
 function initP5Recorder() {
   let _isRecording = false;
   let _config = {};
   let _p5RecorderInitialized = false;
 
-  let _status = "";
+  let _duration = 0;
 
   let recordedBlobs = [];
 
-  const transcode = async (webcamData) => {
-    const name = 'record.webm';
-    console.log('Loading ffmpeg-core.js');
-    await ffmpeg.load();
-    console.log('Start transcoding');
-    await ffmpeg.write(name, webcamData);
-    await ffmpeg.transcode(name,  'output.mp4', `-framerate ${_config.framerate} -vf scale=${_config.width}:${_config.height}`);
-    console.log('Complete transcoding');
-    const data = ffmpeg.read('output.mp4');
+  // set up encoder:
+  init();
 
-    const can2 = document.createElement('video');
-    can2.width = _config.width;
-    can2.height = _config.height;
-    can2.loop = true;
-    var videoURL = URL.createObjectURL(new Blob([data.buffer], { type: 'video/mp4'}));
-    document.querySelector('body').appendChild(can2);
-    can2.src = videoURL;
-    can2.play();
-  }
-
-  // set up ffmpeg:
-  const ffmpeg = createFFmpeg({
-    corePath: "/node_modules/@ffmpeg/core/ffmpeg-core.js",
-    log: true,
-    logger: p => {console.log('logger:'); console.log(p)},
-    progress: p => console.log(p)
-  });
-
-  p5.prototype.startRecording = function() {
+  p5.prototype.startRecording = function(options = {}) {
 
     if(!_p5RecorderInitialized){
       // extend p5.js draw loop:
@@ -60,8 +47,11 @@ function initP5Recorder() {
         } else {
           // check if we had a recording going before:
           if(recordedBlobs.length > 0){
+            _config.totalFrames = recordedBlobs.length;
+
+            console.log(`got ${_config.totalFrames} frames`);
             const resu = new Uint8Array(await (new Blob(recordedBlobs)).arrayBuffer());
-            await transcode(resu);
+            await transcode(resu, _config);
 
             recordedBlobs = [];
 
@@ -82,11 +72,23 @@ function initP5Recorder() {
 
     _isRecording = true;
 
+    // parse options:
+    let { preset, onProgress, onEnd } = options;
+    if(!preset || !H264_PRESETS.includes(preset)){
+      preset = 'slow';
+    }
+    if(!onProgress){
+      onProgress = p => console.log(p);
+    }
+
     _config = {
       width: this.width,
       height: this.height,
       pixelDensity: this._pixelDensity,
       framerate: this._targetFrameRate,
+      preset,
+      onProgress,
+      onEnd
     };
 
     console.log(_config);
