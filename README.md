@@ -1,4 +1,4 @@
-# p5.recorder
+# p5.rec
 
 ## Alternatives
 You might also want to use:
