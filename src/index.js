@@ -35,12 +35,17 @@ function initP5Rec() {
 
         if (_isRecording) {
           // store frame
-          document.querySelector("canvas").toBlob(async (blob) => {
-            // TODO: store directly in virtual filesystem instead of creating array?
-            recordedBlobs.push(blob);
+          if (this.canvas) {
+            this.canvas.toBlob(async (blob) => {
+              // TODO: store directly in virtual filesystem instead of creating array?
+              recordedBlobs.push(blob);
 
+              this._requestAnimId = window.requestAnimationFrame(this._draw);
+            });
+          } else {
+            // couldn't find p5 canvas
             this._requestAnimId = window.requestAnimationFrame(this._draw);
-          });
+          }
         } else {
           // check if we had a recording going before:
           if (recordedBlobs.length > 0) {
