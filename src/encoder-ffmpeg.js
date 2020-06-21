@@ -35,13 +35,14 @@ const parseProgress = (p) => {
 };
 
 export const transcode = async (imageData, config) => {
-  console.log("starting");
   _config = config;
 
   const inputName = "input.webm";
   const outputName = "output.mp4";
 
+  console.log("loading ffmpeg");
   await _ffmpeg.load();
+  console.log("start transcoding");
   await _ffmpeg.write(inputName, imageData);
 
   const ffmpegParams = `-r ${_config.framerate} -i ${inputName} -s ${_config.width}x${_config.height} -crf ${_config.crf} -preset ${_config.preset} -tune animation -pix_fmt yuv420p ${outputName}`;
@@ -53,15 +54,5 @@ export const transcode = async (imageData, config) => {
   await _ffmpeg.remove(inputName);
   await _ffmpeg.remove(outputName);
 
-  const can2 = document.createElement("video");
-  can2.width = _config.width;
-  can2.height = _config.height;
-  can2.loop = true;
-  can2.controls = true;
-  var videoURL = URL.createObjectURL(
-    new Blob([data.buffer], { type: "video/mp4" })
-  );
-  document.querySelector("body").appendChild(can2);
-  can2.src = videoURL;
-  can2.play();
+  _config.onFinish(data);
 };

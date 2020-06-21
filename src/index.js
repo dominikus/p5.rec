@@ -1,4 +1,5 @@
 import { init, transcode } from "./encoder-ffmpeg.js";
+import videoOverlay from "./video-overlay.js";
 
 const H264_PRESETS = [
   "ultrafast",
@@ -76,18 +77,25 @@ function initP5Rec() {
     _isRecording = true;
 
     // parse options:
-    let { preset, crf, onProgress, onEnd } = options;
+    // H264 specific options:
+    let { preset, crf, onProgress, onFinish } = options;
     if (!preset || !H264_PRESETS.includes(preset)) {
       preset = "slow";
-    }
-    if (!onProgress) {
-      onProgress = (p) => console.log(p);
     }
     // crf (Constant Rate Factor) defines video quality and
     // goes from 0 (maximum quality/size) to 51 (worst quality possible)
     // rf. https://trac.ffmpeg.org/wiki/Encode/H.264#crf
     if (typeof crf === "undefined" || isNaN(crf) || crf < 0 || crf > 51) {
       crf = 18;
+    }
+    // general options:
+    if (!onProgress) {
+      onProgress = (p) => console.log(p);
+    }
+    if (!onFinish) {
+      onFinish = (videoBuffer) => {
+        videoOverlay(videoBuffer, _config);
+      };
     }
 
     _config = {
@@ -98,7 +106,7 @@ function initP5Rec() {
       crf,
       preset,
       onProgress,
-      onEnd,
+      onFinish,
     };
 
     console.log(_config);
