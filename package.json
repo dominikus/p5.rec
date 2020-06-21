@@ -6,7 +6,8 @@
   "main": "dist/p5.rec.js",
   "author": "Dominikus Baur <do@minik.us> (https://do.minik.us)",
   "scripts": {
-    "build": "microbundle",
+    "build": "microbundle --compress",
+    "build:standalone": "microbundle --compress --external none",
     "dev": "microbundle watch --external none"
   },
   "devDependencies": {
