@@ -26,7 +26,7 @@ function setup() {
 
   textAlign(CENTER, CENTER);
 
-  startRecording();
+  startRecording({ standalone: true });
 }
 
 function draw() {
@@ -37,12 +37,12 @@ function draw() {
   background(bg);
 
   fill(255);
-  textSize(width/2);
-  text(Math.floor(myFrameCount / 10), width/2, height/2);
+  textSize(width / 2);
+  text(Math.floor(myFrameCount / 10), width / 2, height / 2);
   textSize(20);
   text(myFrameCount, 10, height - 20);
 
-  if(frameCount === 150){
+  if (frameCount === 150) {
     stopRecording();
   }
 }
