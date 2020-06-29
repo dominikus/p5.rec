@@ -11,6 +11,12 @@ export default function (data, _config) {
   const closeButton = document.createElement("button");
   closeButton.innerHTML = "&times;";
   closeButton.style.color = "white";
+  closeButton.style.backgroundColor = "black";
+  closeButton.style.border = "3px solid white";
+  closeButton.style.borderRadius = "100%";
+  closeButton.style.fontSize = "16px";
+  closeButton.style.fontWeight = "bold";
+  closeButton.style.padding = "2px 6px 1px 6px";
   closeButton.style.position = "fixed";
   closeButton.style.top = "10px";
   closeButton.style.right = "10px";
