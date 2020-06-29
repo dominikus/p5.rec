@@ -1,15 +1,26 @@
 {
   "name": "p5.rec",
   "description": "p5.js screen recorder plugin",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "source": "src/index.js",
   "main": "dist/p5.rec.js",
   "author": "Dominikus Baur <do@minik.us> (https://do.minik.us)",
   "scripts": {
     "build": "microbundle --compress",
     "build:standalone": "microbundle --compress --external none",
-    "dev": "microbundle watch --external none"
+    "dev": "microbundle watch --external none",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dominikus/p5.rec.git"
+  },
+  "keywords": ["p5", "screen recording", "mp4", "creative coding"],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dominikus/p5.rec/issues"
+  },
+  "homepage": "https://github.com/dominikus/p5.rec",
   "devDependencies": {
     "microbundle": "^0.12.0"
   },
