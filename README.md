@@ -10,7 +10,7 @@ Import p5.rec from npm to your ```index.html```:
 ```html
   <head>
   ...
-  <script type="module" src="unpkg.com/p5.rec@0.1.0/p5.rec.js"></script>
+  <script type="module" src="https://unpkg.com/p5.rec@0.1.0"></script>
   ...
 ```
 
