@@ -1,7 +1,7 @@
 {
   "name": "p5.rec",
   "description": "p5.js screen recorder plugin",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "source": "src/index.js",
   "main": "dist/p5.rec.js",
   "author": "Dominikus Baur <do@minik.us> (https://do.minik.us)",
