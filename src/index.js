@@ -21,15 +21,15 @@ function initP5Rec() {
   let recordedBlobs = [];
 
   p5.prototype.startRecording = function (options = {}) {
+    // stop regular drawing loop
+    this.noLoop();
+
     if (!_p5RecInitialized) {
       // set up encoder:
       init(options.standalone);
 
       // extend p5.js draw loop:
       const _internalDraw = this._draw;
-
-      // stop regular drawing loop
-      this.noLoop();
 
       this._draw = async () => {
         _internalDraw();
@@ -56,9 +56,8 @@ function initP5Rec() {
             const resu = new Uint8Array(
               await new Blob(recordedBlobs).arrayBuffer()
             );
-            await transcode(resu, _config);
-
             recordedBlobs = [];
+            await transcode(resu, _config);
 
             // regular redraw:
             this._requestAnimId = window.requestAnimationFrame(this._draw);
