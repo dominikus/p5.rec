@@ -53,11 +53,10 @@ Starts the recording. Don't worry if the p5.js frame starts to look choppy, that
   });
 ```
 
-# Notes
+**stopRecording():**
+Stops the recording and starts the transcoding. When starting transcoding, p5.rec has to download **@ffmpeg/core** (around 25MB) which takes a while. Once you see 'starting transcoding' on the console the actual transcoding (and callbacks to `onProgress`) start.
 
-When starting transcoding, p5.rec has to download **@ffmpeg/core** (around 25MB) which takes a while. Once you see 'starting transcoding' on the console the actual transcoding (and callbacks to `onProgress`) start.
-
-Also, when no specific callback is provided for ```onFinish``` p5.rec opens an overlay with the result. In Chrome, you can use the 'Download' feature (bottom right) to download the result:
+When no specific callback is provided for ```onFinish``` p5.rec opens an overlay with the result. In Chrome, you can use the 'Download' feature (bottom right) to download the result:
 
 ![How to download from the overlay](overlay.jpg)
 
