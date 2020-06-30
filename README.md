@@ -11,7 +11,7 @@ Import p5.rec from npm to your ```index.html``` *after* importing p5.js:
   <head>
   ...
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.js"></script>
-  <script src="https://unpkg.com/p5.rec"></script>
+  <script type="module" src="https://unpkg.com/p5.rec"></script>
   ...
 ```
 
@@ -31,7 +31,7 @@ and stop your recording with
 Starts the recording. Don't worry if the p5.js frame starts to look choppy, that's just so that p5.rec can do it's magic 🧙🏼‍♀️. *Options* is optional (just like each of its attributes) and gives you more control over the result:
 ```javascript
   startRecording({
-    preset?: "slow",
+    preset: "slow",
       // H264 preset. One of [ "ultrafast",
       //                       "superfast",
       //                       "veryfast",
@@ -55,7 +55,7 @@ Starts the recording. Don't worry if the p5.js frame starts to look choppy, that
 
 # Notes
 
-When starting transcoding, p5.rec has to download **@ffmpeg/core** (around 25MB) which takes a while.
+When starting transcoding, p5.rec has to download **@ffmpeg/core** (around 25MB) which takes a while. Once you see 'starting transcoding' on the console the actual transcoding (and callbacks to `onProgress`) start.
 
 Also, when no specific callback is provided for ```onFinish``` p5.rec opens an overlay with the result. In Chrome, you can use the 'Download' feature (bottom right) to download the result:
 
