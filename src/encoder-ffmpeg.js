@@ -12,9 +12,6 @@ export const init = (standalone = false) => {
 
   if (standalone) {
     ffmpegOptions.corePath = "/node_modules/@ffmpeg/core/ffmpeg-core.js";
-  } else {
-    ffmpegOptions.corePath =
-      "https://unpkg.com/@ffmpeg/core@v0.7.1/ffmpeg-core.js";
   }
 
   _ffmpeg = createFFmpeg(ffmpegOptions);

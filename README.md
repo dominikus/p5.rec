@@ -6,11 +6,12 @@ P5.rec hooks into the p5.js draw loop to produce buttery-smooth results 🧈🎉
 
 # Getting started
 
-Import p5.rec from npm to your ```index.html```:
+Import p5.rec from npm to your ```index.html``` *after* importing p5.js:
 ```html
   <head>
   ...
-  <script type="module" src="https://unpkg.com/p5.rec@0.1.0"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.js"></script>
+  <script src="https://unpkg.com/p5.rec@0.1.3"></script>
   ...
 ```
 
@@ -71,4 +72,4 @@ You might also want to use:
 * [p5.createLoop](https://github.com/mrchantey/p5.createLoop) creates loops and exports them as gifs from p5.
 
 # Relies on
-p5.rec is using [@ffmpeg/ffmpeg](https://www.npmjs.com/package/@ffmpeg/ffmpeg)
+p5.rec is using [@ffmpeg/ffmpeg](https://www.npmjs.com/package/@ffmpeg/ffmpeg) for doing the transcoding.
