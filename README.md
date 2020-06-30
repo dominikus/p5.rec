@@ -11,7 +11,7 @@ Import p5.rec from npm to your ```index.html``` *after* importing p5.js:
   <head>
   ...
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.js"></script>
-  <script src="https://unpkg.com/p5.rec@0.1.3"></script>
+  <script src="https://unpkg.com/p5.rec"></script>
   ...
 ```
 
