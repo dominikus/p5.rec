@@ -46,8 +46,8 @@ Starts the recording. Don't worry if the p5.js frame starts to look choppy, that
       // crf (Constant Rate Factor) defines video quality and
       // goes from 0 (maximum quality/size) to 51 (worst quality possible)
       // See https://trac.ffmpeg.org/wiki/Encode/H.264#crf
-    onProgress: (p) => console.log(p),
-      // callback for the encoding progress. *p* is a float from 0 to 1.
+    onProgress: (progress) => console.log(p),
+      // callback for the encoding progress. *progress* is a float from 0 to 1.
     onFinish: (videoBuffer) => {},
       // callback for the resulting Uint8array. By default, p5.rec shows an overlay for checking and downloading the result.
   });
