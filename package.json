@@ -1,7 +1,7 @@
 {
   "name": "p5.rec",
   "description": "p5.js screen recorder plugin",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "source": "src/index.js",
   "main": "dist/p5.rec.js",
   "author": "Dominikus Baur <do@minik.us> (https://do.minik.us)",
@@ -15,7 +15,12 @@
     "type": "git",
     "url": "https://github.com/dominikus/p5.rec.git"
   },
-  "keywords": ["p5", "screen recording", "mp4", "creative coding"],
+  "keywords": [
+    "p5",
+    "screen recording",
+    "mp4",
+    "creative coding"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/dominikus/p5.rec/issues"
