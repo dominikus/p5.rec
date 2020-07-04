@@ -15,6 +15,7 @@ const H264_PRESETS = [
 
 function initP5Rec() {
   let _isRecording = false;
+  let _isTransferring = false;
   let _config = {};
   let _p5RecInitialized = false;
 
@@ -49,7 +50,8 @@ function initP5Rec() {
           }
         } else {
           // check if we had a recording going before:
-          if (recordedBlobs.length > 0) {
+          if (!_isTransferring && recordedBlobs.length > 0) {
+            _isTransferring = true;
             _config.totalFrames = recordedBlobs.length;
 
             console.log(`got ${_config.totalFrames} frames`);
@@ -57,6 +59,8 @@ function initP5Rec() {
               await new Blob(recordedBlobs).arrayBuffer()
             );
             recordedBlobs = [];
+            _isTransferring = false;
+
             await transcode(resu, _config);
 
             // regular redraw:
