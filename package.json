@@ -6,8 +6,7 @@
   "main": "dist/p5.rec.js",
   "author": "Dominikus Baur <do@minik.us> (https://do.minik.us)",
   "scripts": {
-    "build": "microbundle --compress",
-    "build:standalone": "microbundle --compress --external none",
+    "build": "microbundle --compress --external none",
     "dev": "microbundle watch --external none",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
