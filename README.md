@@ -4,6 +4,12 @@ Library for **easy recording of [p5.js](https://p5js.org) sketches** and **in-br
 
 P5.rec hooks into the p5.js draw loop to produce buttery-smooth results 🧈🎉 to upload to Youtube, Instagram, Twitter, etc.
 
+**Check out the demo:**
+
+👉🏽
+[**Demo on p5js**](https://editor.p5js.org/dominikus/sketches/jFmtnsKSe)
+&nbsp;👈🏽
+
 # How it works
 
 If you've ever recorded your p5.js sketches with a screen recording tool like quickTime, you might have run into the problem of jerky recordings. If your sketch is too complex, rendering performance drops and frames are missing, since your screen recording tool doesn't know about what it's recording.
@@ -71,8 +77,7 @@ When no specific callback is provided for ```onFinish``` p5.rec opens an overlay
 p5.rec at the moment only supports [p5's global mode](https://github.com/processing/p5.js/wiki/Global-and-instance-mode). I'm working on getting it running in instance mode as well ([See this issue](https://github.com/dominikus/p5.rec/issues/1)).
 
 Also in general, p5.rec unfortunately takes a while to do its job. So just be patient :)
-![https://giphy.com/gifs/collin-3o7TKU1Lzv3AURPVN6](dog-computer.gif)
-
+![](http://cdn.lowgif.com/full/87e2ecff8fa3a329-computer-dog-gifs-find-share-on-giphy.gif)
 
 # Examples
 
