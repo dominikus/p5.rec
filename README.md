@@ -4,6 +4,8 @@ Library for **easy recording of [p5.js](https://p5js.org) sketches** and **in-br
 
 P5.rec hooks into the p5.js draw loop to produce buttery-smooth results 🧈🎉 to upload to Youtube, Instagram, Twitter, etc.
 
+**Unfortunately, **p5.rec** doesn't work on Firefox at the moment :( (see [this issue](https://github.com/dominikus/p5.rec/issues/2))**
+
 **Check out the demo:**
 
 👉🏽
